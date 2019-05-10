@@ -116,16 +116,80 @@ public class BinarySearch {
         return h;
     }
 
+    public int findMinInRotatedSortedArray(int[] nums){
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        int l = 0, h = nums.length-1, mid;
+        int target = nums[nums.length - 1];
+        while(l + 1 < h){
+            mid = (l + h) /2;
+            if(nums[mid] <= target){
+                h = mid;
+            }
+            else{
+                l = mid;
+            }
+        }
+        return Math.min(nums[l], nums[h]);
+    }
+
+    public boolean searchIn2DMatrix(int[][] nums, int target){
+        if(nums == null || nums.length == 0){
+            return false;
+        }
+        int m = nums.length - 1, n = nums[0].length - 1;
+        int l = 0, h = m, mid;
+        while(l + 1<h){
+            if( target >= nums[h][0]){
+                l = h;
+                break;
+            }
+            mid = (l + h)/2;
+            if(nums[mid][0] <= target){
+                l = mid;
+            }
+            else {
+                h = mid;
+            }
+        }
+        int row = l;
+        if(nums[h][0] <= target) row = h;
+        l = 0;
+        h = n;
+        while(l <= h){
+            mid = (l + h)/2;
+            if(nums[row][mid] == target){
+                return true;
+            }
+            else if (nums[row][mid] < target){
+                l = mid + 1;
+            }
+            else{
+                h = mid - 1;
+            }
+        }
+        return false;
+
+    }
+
     public static void main(String[] args) {
         int[] nums = { 1,2,2,4,5,5};
-        int target = 2;
+        int[] rotateNum = {1,2,3,4,5};
+        int target = 6;
+        int[][] matrix = {
+                {1,4,5},
+                {6,7,8}
+    };
 
         BinarySearch bs = new BinarySearch();
-        System.out.println(bs.classicSearch(nums, target));
-        System.out.println(bs.searchFirstPosition(nums, target));
-        System.out.println(bs.searchLastPosition(nums, target));
-        System.out.println(bs.findFirstBadVersionV1(5));
-        System.out.println(bs.findFirstBadVersionV2(5));
+//        System.out.println(bs.classicSearch(nums, target));
+//        System.out.println(bs.searchFirstPosition(nums, target));
+//        System.out.println(bs.searchLastPosition(nums, target));
+//        System.out.println(bs.findFirstBadVersionV1(5));
+//        System.out.println(bs.findFirstBadVersionV2(5));
+//        System.out.println(bs.findMinInRotatedSortedArray(rotateNum));
+        System.out.println(bs.searchIn2DMatrix(matrix, target));
     }
 }
 
