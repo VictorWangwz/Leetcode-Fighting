@@ -173,13 +173,136 @@ public class BinarySearch {
 
     }
 
+    public int searchIn2DMatrixForOccurance(int[][] nums, int target){
+        if(nums == null || nums.length == 0 || nums[0].length == 0){
+            return 0;
+        }
+        int m = nums.length - 1, n = nums[0].length - 1;
+        int l = 0, h = m, mid;
+        while(l + 1<h){
+            if( target >= nums[h][0]){
+                l = h;
+                break;
+            }
+            mid = (l + h)/2;
+            if(nums[mid][0] <= target){
+                l = mid;
+            }
+            else {
+                h = mid;
+            }
+        }
+        int row = l;
+        if(nums[h][0] <= target) row = h;
+        int oc = 0;
+        for(int i = 0; i<=row; i++){
+            l = 0;
+            h = n;
+            while(l <= h){
+                mid = (l + h)/2;
+                if(nums[i][mid] == target){
+                    oc ++;
+                    l = mid + 1;
+                }
+                else if (nums[i][mid] < target){
+                    l = mid + 1;
+                }
+                else{
+                    h = mid - 1;
+                }
+            }
+        }
+        return oc;
+    }
+
+
+    public int[] searchRange(int[] nums, int target){
+        int[] rst = new int[2];
+        if (nums == null || nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        int l = 0, h = nums.length - 1;
+        int mid = (l + h)/2;
+        // Search first position
+        while (l < h) {
+            mid = (l + h) / 2;
+            if (nums[mid] == target) {
+                h = mid;
+            } else if (nums[mid] < target) {
+                l = mid + 1;
+            } else {
+                h = mid - 1;
+            }
+        }
+        if (nums[l] == target) rst[0] = l;
+        else rst[0] = -1;
+
+        l = 0;
+        h = nums.length - 1;
+        // Search last position
+        while (l < h) {
+            mid = (l + h) / 2;
+            if (nums[mid] == target) {
+                if(nums[mid + 1] != target){
+                    rst[1] = mid;
+                    break;
+                }
+                l = mid + 1;
+            } else if (nums[mid] < target) {
+                l = mid + 1;
+            } else {
+                h = mid - 1;
+            }
+        }
+        if(rst[1] != mid){
+            if (nums[h] == target) rst[1] = h;
+            else rst[1] = -1;
+        }
+        return rst;
+    }
+
+    public int findMountTop(int[] nums){
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int l = 0, h = nums.length-1, mid;
+        while(l + 1 < h){
+            mid = (l+h)/2;
+            if(nums[mid] < nums[mid + 1]){
+                l = mid;
+            }
+            else{
+                h = mid;
+            }
+        }
+        return Math.max(nums[l], nums[h]);
+    }
+
+    public int findPeakElement(int[] nums){
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int l = 0, h = nums.length-1, mid;
+        while(l + 1 < h){
+            mid = (l+h)/2;
+            if(nums[mid] < nums[mid + 1]){
+                l = mid;
+            }
+            else {
+                h = mid;
+            }
+        }
+        return nums[l]>nums[h]?l:h;
+    }
+
     public static void main(String[] args) {
-        int[] nums = { 1,2,2,4,5,5};
+        int[] nums = {1, 2, 1, 3, 4, 5, 7, 6};
         int[] rotateNum = {1,2,3,4,5};
-        int target = 6;
+        int target = 7;
         int[][] matrix = {
-                {1,4,5},
-                {6,7,8}
+                {1, 3, 5, 7},
+                {2, 4, 7, 8},
+                {3, 5, 9, 10}
     };
 
         BinarySearch bs = new BinarySearch();
@@ -189,7 +312,11 @@ public class BinarySearch {
 //        System.out.println(bs.findFirstBadVersionV1(5));
 //        System.out.println(bs.findFirstBadVersionV2(5));
 //        System.out.println(bs.findMinInRotatedSortedArray(rotateNum));
-        System.out.println(bs.searchIn2DMatrix(matrix, target));
+//        System.out.println(bs.searchIn2DMatrix(matrix, target));
+//        System.out.println(bs.searchIn2DMatrixForOccurance(matrix, target));
+//        System.out.println(Arrays.toString(bs.searchRange(nums, target)));
+//        System.out.println(bs.findMountTop(nums));
+        System.out.println(bs.findPeakElement(nums));
     }
 }
 
