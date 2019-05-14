@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BuildTree {
-
+    //Build a tree with preorder and inorder
     int pre_idx = 0;
     int[] preorder, inorder;
     Map<Integer, Integer> m = new HashMap<>();

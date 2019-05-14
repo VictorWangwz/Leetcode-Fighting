@@ -7,6 +7,7 @@ import java.util.Stack;
 public class Traversal {
     List<Integer> rst = new LinkedList<>();
 
+    //Preorder traversal
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> rst = new LinkedList<>();
         Stack<TreeNode> s = new Stack<>();
@@ -28,6 +29,7 @@ public class Traversal {
         return rst;
     }
 
+    //Preorder traversal using recursion
     public List<Integer> preorderTraversalRecursive(TreeNode root) {
         if(root == null){
             return rst;
@@ -39,6 +41,7 @@ public class Traversal {
         return rst;
     }
 
+    //Inorder traversal
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> rst = new LinkedList<>();
         Stack<TreeNode> s = new Stack<>();
@@ -55,6 +58,7 @@ public class Traversal {
         return rst;
     }
 
+    //Inorder traversal using recursion
     public List<Integer> inorderTraversalRecursive(TreeNode root) {
         if(root == null){
             return rst;
@@ -65,6 +69,7 @@ public class Traversal {
         return rst;
     }
 
+    //Postorder traversal
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> rst = new LinkedList<>();
         List<TreeNode> s = new LinkedList<>();
@@ -85,6 +90,7 @@ public class Traversal {
         return rst;
     }
 
+    //Postorder traversal using recursion
     public List<Integer> postorderTraversalRecursive(TreeNode root) {
         if (root == null) {
             return rst;
@@ -95,6 +101,7 @@ public class Traversal {
         return rst;
     }
 
+    //Get maximum depth of a tree
     public int maxDepth(TreeNode root) {
         if(root == null){
             return 0;
@@ -102,7 +109,7 @@ public class Traversal {
         return 1 +(Math.max(maxDepth(root.left), maxDepth(root.right)));
     }
 
-
+    //Get all paths of a binary tree
     public void binaryTreePathsHelper(
             TreeNode root,
             List<String> paths,
@@ -133,6 +140,7 @@ public class Traversal {
 
     }
 
+    //Find subtree with minimum sum
     int min = Integer.MAX_VALUE;
     TreeNode node;
     public int findSubtreeWithMinSumHelper(TreeNode root){
@@ -152,7 +160,7 @@ public class Traversal {
         return node;
     }
 
-
+    //Check if a tree is balanced
     public int treeDepth(TreeNode root){
         if(root == null){
             return 0;
@@ -173,6 +181,7 @@ public class Traversal {
         return false;
     }
 
+    //Check if a tree is balanced with a customized ResultType
     public ResultType isBalancedWithResultTypeHelper(TreeNode root){
         if(root == null){
             return new ResultType(true, 0);
@@ -214,20 +223,37 @@ public class Traversal {
         return rt;
     }
 
+    //Find subtree with largest average
     public TreeNode findSubtreeWithMaxAverage(TreeNode root) {
         rstForMaxAve = new ResultTypeForMaxAve(root);
         ResultTypeForMaxAve rst = findSubTreeWithMaxAverageHelper(root);
         return rstForMaxAve.node;
     }
 
+    //Find lowest common ancestor (LCA) of two nodes
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || root == p || root == q){
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left != null && right != null) return root;
+        if(left != null) return left;
+        if(right != null) return right;
+        return null;
+    }
+
     public static void main(String[] args) {
 //        int[] preorder = { 3, 9, 20, 15, 7 },
 //                inorder = { 9, 3, 15, 20, 7 };
-        int[] preorder = { 1, -5, 3, 2, 11, 4, -2 },
-                inorder = { 1, -5, 2, 3, 4, 11, -2 };
+        int[] preorder = { 2, 1, 3},
+                inorder = { 1, 2, 3 };
         Traversal t = new Traversal();
         BuildTree b = new BuildTree();
         TreeNode root = b.buildTree(preorder, inorder);
-        System.out.println(t.findSubtreeWithMaxAverage(root).val);
+        BSTIterator bst_iter = new BSTIterator(root);
+//        while(bst_iter.hasNext()){
+//            System.out.println(bst_iter.next());
+//        }
     }
 }
