@@ -1,7 +1,6 @@
 package oa2preparation0519;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class KDistinctCharacters {
     // Count in string
@@ -22,6 +21,45 @@ public class KDistinctCharacters {
                 }else if(dist > k) {
                     break;
                 }
+            }
+        }
+        return rst;
+    }
+
+    // Count in string
+    //Count number of k-substrings with exactly k distinct characters
+    public static int countkDist2(String str, int k){
+        int rst = 0;
+        char[] char_list = str.toCharArray();
+        for(int i = 0; i + k <= char_list.length; i++){
+            String sub_str = str.substring(i, i + k);
+            char[] sub_char_list = sub_str.toCharArray();
+            Set<Character> set = new HashSet<>();
+            for(char c: sub_char_list){
+                set.add(Character.valueOf(c));
+            }
+            if(set.size() == k){
+                rst ++;
+            }
+        }
+        return rst;
+    }
+
+    // Count in string
+    //Count number of k-substrings with exactly k-1 distinct characters
+    public static List<String> countkDist3(String str, int k){
+//        int rst = 0;
+        List<String> rst = new ArrayList<>();
+        char[] char_list = str.toCharArray();
+        for(int i = 0; i + k <= char_list.length; i++){
+            String sub_str = str.substring(i, i + k);
+            char[] sub_char_list = sub_str.toCharArray();
+            Set<Character> set = new HashSet<>();
+            for(char c: sub_char_list){
+                set.add(Character.valueOf(c));
+            }
+            if(set.size() == k - 1){
+                rst.add(sub_str);
             }
         }
         return rst;
@@ -52,13 +90,14 @@ public class KDistinctCharacters {
     }
 
     public static void main(String[] args) {
-//        String s = "abc";
-//        int k = 2;
+        String s = "";
+        int k = 3;
 //        int rst = countkDist(s, k);
-//        System.out.println(rst);
-        char[] chars = {'a', 'd', 'f', 'g', 'k' ,'g'};
-        int k =4;
-        List<List<Character>> rst = countDist2(chars, k);
+        List<String> rst = countkDist3(s, k);
         System.out.println(rst);
+//        char[] chars = {'a', 'd', 'f', 'g', 'k' ,'g'};
+//        int k = 4;
+//        List<List<Character>> rst = countkDist(chars, k);
+//        System.out.println(rst);
     }
 }

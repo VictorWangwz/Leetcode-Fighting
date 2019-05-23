@@ -35,34 +35,34 @@ public class LongestPalindromicSubstring {
     }
 
     // recursion
-    public static int findSubstring(String s, int i, int j){
-        while(i >=0 && j < s.length() && s.charAt(i) ==  s.charAt(j)){
-            i--;
-            j++;
+    public static int findPalindrome(String inputStream, int s, int e){
+        while(s >=0 && e <inputStream.length()&&inputStream.charAt(s) ==  inputStream.charAt(e)){
+            s --;
+            e ++;
         }
-        return j - i + 1 -2;
+        return (e - 1) - (s + 1) + 1;
     }
 
-
-    public static String longestPalindrome2(String s) {
-        if(s.length() <= 1) return s;
-        String rst = "";
-        int start =0, end = 0;
-        for(int i = 0; i < s.length(); i++){
-            int l1 = findSubstring(s, i, i);
-            int l2 = findSubstring(s, i, i+1);
-            int len = l1>l2?l1:l2;
-            if (len>end-start){
-                start = i -(len-1)/2;
-                end = i + len/2;
+    public static String longestPalindrome2(String inputStream) {
+        if(inputStream == null || inputStream.length() <= 1) return inputStream;
+        int s = 0, e = 0;
+        int maxLen =  Integer.MIN_VALUE;
+        for(int i = 0; i < inputStream.length(); i++){
+            int l1 = findPalindrome(inputStream, i, i);
+            int l2 = findPalindrome(inputStream, i, i + 1);
+            int maxLenTemp = l1 > l2 ? l1: l2;
+            if(maxLenTemp > maxLen){
+                s = i - (maxLenTemp-1) / 2;
+                e = s + maxLenTemp - 1;
+                maxLen = maxLenTemp;
             }
         }
-        return s.substring(start, end + 1);
+        return inputStream.substring(s, e + 1);
     }
 
     public static void main(String[] args) {
-        String input = "cbbd";
-        String rst = longestPalindrome2(input);
+        String input = "abcdcbaxyx";
+        String rst = longestPalindrome(input);
         System.out.println(rst);
     }
 }
