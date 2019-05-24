@@ -31,6 +31,9 @@ public class MostFrequentUsedWords {
                 rst.add(key);
             }
         }
+        if(max == 0){
+            rst.clear();
+        }
         return rst;
     }
 
@@ -61,7 +64,7 @@ public class MostFrequentUsedWords {
                     rst.clear();
                     rst.add(word.toString());
                 }
-                else if(m.get(found) == count){
+                else if(m.get(found) == count && count != 0){
                     rst.add(word.toString());
                 }
                 word = new StringBuilder();
