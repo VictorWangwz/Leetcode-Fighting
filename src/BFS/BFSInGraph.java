@@ -5,7 +5,7 @@ import java.util.*;
 public class BFSInGraph {
 
     // Build Graph with node number and edges
-    public  Map<Integer, HashSet<Integer>> initializeGraph(int n, int[][] edges){
+    public  static Map<Integer, HashSet<Integer>> initializeGraph(int n, int[][] edges){
         Map<Integer, HashSet<Integer>> m = new HashMap<>();
         for(int i = 0; i < n; i++){
             m.put(i, new HashSet<>());
@@ -83,12 +83,74 @@ public class BFSInGraph {
         return rst;
     }
 
+
+    // Connected componentin Undirected Graph
+    public static int countComponents(int n, int[][] edges) {
+        boolean[] visited = new boolean[n];
+        List<List<Integer>> edgesList = new ArrayList<>();
+        for(int i = 0; i < n; i ++){
+            edgesList.add(new ArrayList<>());
+        }
+        for(int i = 0; i < edges.length; i++){
+            edgesList.get(edges[i][0]).add(edges[i][1]);
+            edgesList.get(edges[i][1]).add(edges[i][0]);
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        int rst = 0;
+
+        for(int i = 0; i < n; i++){
+            if(!visited[i]){
+                q.offer(i);
+                rst ++;
+                while(!q.isEmpty()){
+                    int cur = q.poll();
+                    visited[cur] = true;
+                    List<Integer> l = edgesList.get(cur);
+                    for(Integer temp: l){
+                        if(!visited[temp])
+                            q.offer(temp);
+                    }
+                }
+            }
+
+        }
+        return rst;
+    }
+
+    public static int countComponents2(int n, int[][] edges) {
+        boolean[] visited = new boolean[n];
+        Map<Integer, HashSet<Integer>> m = initializeGraph(n, edges);
+
+        Queue<Integer> q = new LinkedList<>();
+        int rst = 0;
+        for(int i = 0; i < n; i++){
+            if(!visited[i] && m.containsKey(i)){
+                q.offer(i);
+                rst ++;
+                while(!q.isEmpty()){
+                    int idx = q.poll();
+                    visited[idx] = true;
+                    Set<Integer> s = m.get(idx);
+                    for(int temp: s){
+                        if(!visited[temp]){
+                            q.offer(temp);
+                        }
+                    }
+                }
+            }
+
+        }
+        return rst;
+    }
+
     public static void main(String[] args) {
         BFSInGraph g = new BFSInGraph();
         int n = 4;
         int[][] edges = {{0, 1}, {1, 2}, { 2, 3}, {3, 0}};
         Graph graph = new Graph(4, edges);
         Node cloned_node = g.cloneGraph(graph.root);
-        System.out.println(cloned_node);
+        int rst = countComponents2(n, edges);
+        System.out.println(rst);
     }
 }

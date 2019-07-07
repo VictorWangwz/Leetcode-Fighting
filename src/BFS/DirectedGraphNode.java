@@ -105,21 +105,23 @@ class DirectedGraphNode {
         return rst;
     }
 
-    // Sequence Reconstruction
-    public static boolean sequenceReconstruction(int[] org, List<List<Integer>> seqs) {
-        Map<Integer, HashSet<Integer>> m = new HashMap<>();
-        for(List<Integer> seq: seqs){
-            for(int i = 0; i < seq.size(); i++){
-                if(i + 1 < seq.size()){
-                    if(!m.containsKey(seq.get(i))){
-                        m.put(seq.get(i), new HashSet<>());
-                    }
-                    m.get(seq.get(i)).add(seq.get(i + 1));
-                }
-            }
-        }
-        return true;
-    }
+//    // Sequence Reconstruction
+//    public static boolean sequenceReconstruction(int[] org, List<List<Integer>> seqs) {
+//        Map<Integer, HashSet<Integer>> m = new HashMap<>();
+//        for(List<Integer> seq: seqs){
+//            for(int i = 0; i < seq.size(); i++){
+//                if(i + 1 < seq.size()){
+//                    if(!m.containsKey(seq.get(i))){
+//                        m.put(seq.get(i), new HashSet<>());
+//                    }
+//                    m.get(seq.get(i)).add(seq.get(i + 1));
+//                }
+//            }
+//        }
+//        return true;
+//    }
+
+
 
     public static void main(String[] args) {
         int numCourses = 4;
@@ -135,7 +137,6 @@ class DirectedGraphNode {
             seqs.add(new LinkedList<>());
             seqs.set(i++, temp);
         }
-        System.out.println(sequenceReconstruction(org, seqs));
 
     }
 
