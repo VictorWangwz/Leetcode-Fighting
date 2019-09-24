@@ -69,15 +69,47 @@ public class MostFrequentUsedWords {
         }
         return rst;
     }
+    // sensitive
+    public static List<String> findMostFrequentUsedWords3(String literatureText, List<String> wordsToExclude) {
+        Map<String, Integer> m = new HashMap();
+        StringBuilder word = new StringBuilder();
+        int count = 0;
+        List<String> rst = new ArrayList<>();
+        literatureText += " ";
+        for(Character c: literatureText.toCharArray()){
+            if(Character.isLetter(c)){
+                word.append(c);
+            }
+            else if(word.length() > 0){
+                String found = word.toString();
+                if(wordsToExclude.contains(found)){
+                    m.put(found, 0);
+                }
+                else{
+                    m.put(found, m.getOrDefault(found, 0) + 1);
+                }
+                if(m.get(found) > count ){
+                    count = m.get(found);
+                    rst.clear();
+                    rst.add(word.toString());
+                }
+                else if(m.get(found) == count){
+                    rst.add(word.toString());
+                }
+                word = new StringBuilder();
+            }
+        }
+        return rst;
+    }
 
     public static void main(String[] args) {
         String literatureText = "Jack and Jill went to the market to buy some bread and cheese.Cheese is Jack's and Jill's favorite food";
-        String[] ban_list = {"and", "he", "the", "to","is", "Jack", "Jill"};
+        String[] ban_list = {"and", "he", "the", "to","is", "Jack", "Jill","s"};
         List<String> wordsToExclude = new ArrayList<>();
         for(String s: ban_list){
             wordsToExclude.add(s);
         }
-        List<String> rst = findMostFrequentUsedWords2(literatureText, wordsToExclude);
+        List<String> rst = findMostFrequentUsedWords3(literatureText, wordsToExclude);
         System.out.println(rst);
     }
 }

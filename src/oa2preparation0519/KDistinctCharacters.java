@@ -1,5 +1,5 @@
 package oa2preparation0519;
-
+//oa2preparation0519.KDistinctCharacters
 import java.util.*;
 
 public class KDistinctCharacters {
@@ -66,6 +66,39 @@ public class KDistinctCharacters {
             }
         }
         return rst.size();
+    }
+
+    //sol 2
+    public static int countkDist20(String stringIn, int K) {
+        // Write your code here
+        if(stringIn.length()<K)
+            return 0;
+        int j;
+        char t;
+        Set<String> resultset = new TreeSet<>();
+        Set<Character> set = new TreeSet<>();
+        for(int i=0;i<stringIn.length();i++){
+            j=0;
+            for(;i+j<stringIn.length();j++){
+                t=stringIn.charAt(i+j);
+                if(set.contains(t)){
+                    set.clear();
+                    for(int k=j-1;k>=0;k--){
+                        if(stringIn.charAt(i+k)==t){
+                            i=i+k;
+                            break;
+                        }
+                    }
+                    break;
+                }
+                else
+                    set.add(t);
+                if(set.size()>=K){
+                    resultset.add(stringIn.substring(i+j-K+1,i+j+1));
+                }
+            }
+        }
+        return resultset.size();
     }
 
     // Count in string
@@ -157,9 +190,9 @@ public class KDistinctCharacters {
     }
 
     public static void main(String[] args) {
-        String s = "pqpqs";
-        int k = 2;
-        int rst = countkDist1(s, k);
+        String s = "abcabc";
+        int k = 3;
+        int rst = countkDist20(s, k);
 //        List<String> rst = countkDist1(s, k);
         System.out.println(rst);
 //        char[] chars = {'a', 'd', 'f', 'g', 'k' ,'g'};
