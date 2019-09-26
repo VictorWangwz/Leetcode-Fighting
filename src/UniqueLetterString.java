@@ -1,28 +1,36 @@
-import java.util.HashSet;
-import java.util.Set;
-
 //828. Unique Letter String
+
+//todo time complexity
 public class UniqueLetterString {
     public static int uniqueNum(String s){
-        Set<Character> set = new HashSet<>();
+        int[] charNums = new int[26];
         for(char c: s.toCharArray()){
-            set.add(c);
+            int idx = (c - 'A');
+            charNums[idx] += 1;
         }
-        return set.size();
+        int rst = 0;
+        for( int num: charNums){
+            if(num == 1){
+                rst += 1;
+            }
+        }
+        return rst;
     }
+
+
     public static int uniqueLetterString(String S) {
         if(S == null || S.length() == 0){
             return 0;
         }
-        Set<String> set = new HashSet<>();
-        int num = 0;
-        for( int i = 0; i < S.length(); i ++){
-            for( int j = i; j < S.length(); j++){
-                set.add(S.substring(i, j+1));
-                num += j - i + 1;
+        int[] dp = new int[S.length()];
+        dp[0] = 1;
+        for( int i = 1; i < S.length(); i ++){
+            dp[i] = dp[i - 1] + 1;
+            for(int j = 0; j < i; j++){
+                dp[i] += uniqueNum(S.substring(j, i + 1));
             }
         }
-        return num;
+        return dp[dp.length - 1];
 
     }
 
