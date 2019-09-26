@@ -1,3 +1,5 @@
+package cc.ArraysAndStrings;
+
 import java.util.HashMap;
 import java.util.Map;
 

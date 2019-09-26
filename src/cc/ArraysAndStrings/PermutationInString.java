@@ -1,3 +1,5 @@
+package cc.ArraysAndStrings;
+
 import java.util.Arrays;
 
 //567. Permutation in String

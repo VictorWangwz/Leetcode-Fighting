@@ -1,4 +1,4 @@
-//26. Remove Duplicates from Sorted Array
+package cc.LinkedList;//26. Remove Duplicates from Sorted Array
 
 public class RemoveDuplicatesFromSortedArray {
 

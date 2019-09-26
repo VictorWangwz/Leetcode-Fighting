@@ -1,4 +1,4 @@
-//48. Rotate Image
+package cc.ArraysAndStrings;//48. Rotate Image
 
 public class RotateImage {
 

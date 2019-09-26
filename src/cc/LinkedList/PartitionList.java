@@ -1,4 +1,4 @@
-//86. Partition List
+package cc.LinkedList;//86. Partition List
 
 public class PartitionList {
 

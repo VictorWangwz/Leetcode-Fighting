@@ -1,4 +1,4 @@
-//443String Compression
+package cc.ArraysAndStrings;//443String Compression
 
 public class StringCompression {
     private static char[] chars = {'a','a','b','b','c','c','c'};

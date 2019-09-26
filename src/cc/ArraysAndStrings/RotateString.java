@@ -1,3 +1,5 @@
+package cc.ArraysAndStrings;
+
 //796. Rotate String
 public class RotateString {
 
