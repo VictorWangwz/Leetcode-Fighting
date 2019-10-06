@@ -3,39 +3,60 @@ package cc.TreesAndGraphs;
 public class SurroundedRegions {
 
 
-    private static boolean dfs(char[][] board, int i, int j){
-        if( i >= board.length -  1 || j >= board[0].length - 1 || i <= 0 || j <= 0){
-            if(board[i][j] == 'O'){
-                return false;
-            }
-            else return true;
+    private static void color(char[][] board, int i, int j){
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length){
+            return;
         }
-        boolean left = dfs(board, i - 1, j);
-        boolean right = dfs(board, i + 1, j);
-        boolean top = dfs(board, i, j - 1);
-        boolean bot = dfs(board, i, j + 1);
-        return left && right && top && bot;
+        if(board[i][j] == 'O'){
+            board[i][j] = '*';
+            color(board, i - 1, j);
+            color(board, i + 1, j);
+            color(board, i, j - 1);
+            color(board, i, j + 1);
+        }
+        else{
+            return;
+        }
+
+
     }
 
     public static void solve(char[][] board) {
+        if( board == null || board.length == 0 || board[0].length == 0){
+            return;
+        }
 
-        for( int i = 0; i < board.length; i++){
-            for( int j = 0; j < board[0].length; j++){
+        int m = board.length, n = board[0].length;
+        for(int i = 0; i < m ; i++ ){
+            color(board, i, 0);
+            color(board, i, n - 1);
+
+        }
+        for(int i = 0; i < n; i++){
+            color(board, 0, i);
+            color(board, m - 1, i);
+
+        }
+        for( int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
                 if(board[i][j] == 'O'){
-                    if(dfs(board, i, j)){
-                        board[i][j] = 'X';
-                    }
+                    board[i][j] = 'X';
+                }
+                if(board[i][j] == '*'){
+                    board[i][j] = 'O';
                 }
             }
         }
+        return;
+
     }
 
     public static void main(String[] args) {
         char[][] board = {
-                {'X','X','X','X'},
-                {'X','O','O','X'},
-                {'X','X','O','X'},
-                {'X','O','X','X'}
+                {'X','O','X','O','X','O'},
+                {'O','X','O','X','O','X'},
+                {'X','O','X','O','X','O'},
+                {'O','X','O','X','O','X'}
         };
         solve(board);
 
