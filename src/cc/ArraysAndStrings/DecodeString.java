@@ -2,58 +2,32 @@ package cc.ArraysAndStrings;
 
 //394. Decode String
 public class DecodeString {
-    //todo
-//    public String decodeString(String s) {
-//        Stack<Integer> countS = new Stack<>();
-//        Stack<Integer> idxS = new Stack<>();
-//        StringBuffer sb = new StringBuffer();
-//        for(int i = 0; i < s.length(); i++){
-//            char c = s.charAt(i);
-//            sb.append(String.valueOf(c));
-//            if(c == '['){
-//                idxS.push(i + 1);
-//                countS.push(s.charAt(i - 1) - '0');
-//            }
-//            else if(c == ']'){
-//                int start = idxS.pop();
-//                int count = countS.pop();
-//                StringBuffer tmp = new StringBuffer();
-//                for(int j = start; j < i; j++){
-//                    tmp.append(s.charAt(j));
-//                }
-//                sb.replace(start -2, sb.length(), tmp.toString());
-//                for(int j = 1; j < count; j++){
-//                    sb.append(tmp);
-//                }
-//            }
-//        }
-//        return sb.toString();
-//
-//    }
 
-
-    private int helper(StringBuffer sb, int idx, String s){
+    private int helper(StringBuffer sb, int idx, int count, String s){
         StringBuffer rst = new StringBuffer();
         int num;
         for(int i = idx; i < s.length(); ) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
+               i++;
+               continue;
+            }
+            else if(c == '['){
                 int k = i;
-                while (s.charAt(k) != '[') {
-                    k++;
+                while (k - 1 >= 0 && Character.isDigit(s.charAt(k - 1))) {
+                    k--;
                 }
-                num = Integer.valueOf(s.substring(i, k));
+                num = Integer.valueOf(s.substring(k, i));
                 StringBuffer tmp = new StringBuffer();
-                i = helper(tmp, k + 1, s);
+                i = helper(tmp, i + 1, num, s);
                 rst.append(tmp);
-                for (int j = 0; j < num; j++) {
-                    sb.append(rst);
-                }
+
                 i++;
-                return i;
             }
             else if(c ==']'){
-                sb.append(rst);
+                for (int j = 0; j < count; j++) {
+                    sb.append(rst);
+                }
                 return i;
             }
 
@@ -74,7 +48,7 @@ public class DecodeString {
         newS.insert(0,"1[");
         newS.append("]");
         StringBuffer sb = new StringBuffer();
-        helper(sb, 0, newS.toString());
+        helper(sb, 0, 1,  newS.toString());
         return sb.toString();
     }
 

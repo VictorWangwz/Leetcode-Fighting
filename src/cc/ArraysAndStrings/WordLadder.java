@@ -50,7 +50,7 @@ public class WordLadder {
         }
         return rst;
     }
-    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    public int ladderLength0(String beginWord, String endWord, List<String> wordList) {
         if(!wordList.contains(endWord)){
             return 0;
         }
@@ -67,11 +67,49 @@ public class WordLadder {
         return rst == Integer.MAX_VALUE? 0: rst;
     }
 
+    //work
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if(!wordList.contains(endWord)){
+            return 0;
+        }
+
+        addEle(wordList, beginWord);
+        addEle(wordList, endWord);
+        for(String word: wordList){
+            addEle( wordList, word);
+        }
+
+        Set<String> visited = new HashSet<>();
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
+        visited.add(beginWord);
+        int rst = 0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            while(size-- > 0){
+                String cur = q.poll();
+                if(cur.equals(endWord)){
+                    return rst + 1;
+                }
+                Set<String> tmp = map.get(cur);
+                for(String s: tmp){
+                    if(!visited.contains(s)){
+                        visited.add(s);
+                        q.offer(s);
+                    }
+                }
+            }
+            rst ++;
+
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         WordLadder wordLadder = new WordLadder();
-        String beginWord = "hot";
-        String endWord = "dog";
-        String[] wordArr = {"hot","dog","cog","pot","dot"};
+        String beginWord = "hit";
+        String endWord = "cog";
+        String[] wordArr = {"hot","dot","dog","lot","log","cog"};
         List<String> wordList = new ArrayList<>();
         for(String word: wordArr){
             wordList.add(word);

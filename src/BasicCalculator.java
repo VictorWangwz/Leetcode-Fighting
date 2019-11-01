@@ -26,24 +26,31 @@ public class BasicCalculator {
                     continue;
                 }
                 default:{
+                    StringBuffer tmpVal = new StringBuffer();
+                    while(i < s.length() &&s.charAt(i) != ' ' && s.charAt(i) != '*' && s.charAt(i) != '/' && s.charAt(i) != '+' && s.charAt(i) != '-'){
+                        tmpVal.append(s.charAt(i));
+                        i++;
+                    }
+                    i--;
+
                     if(sOpt.isEmpty()){
-                        sHelp.push(s.charAt(i) - '0');
+                        sHelp.push(Integer.valueOf(tmpVal.toString()));
                         continue;
                     }
                     if(sOpt.peek() == '*')
                     {
                         sOpt.pop();
-                        int val = (sVal.pop()) * (s.charAt(i) - '0');
+                        int val = (sVal.pop()) * (Integer.valueOf(tmpVal.toString()));
                         sVal.push(val);
                     }
                     else if(sOpt.peek() == '/')
                     {
                         sOpt.pop();
-                        int val = (sVal.pop()) / (s.charAt(i) - '0');
+                        int val = (sVal.pop()) / (Integer.valueOf(tmpVal.toString()));
                         sVal.push(val);
                     }
                     else{
-                        sHelp.push(s.charAt(i) - '0');
+                        sHelp.push(Integer.valueOf(tmpVal.toString()));
                         continue;
                     }
                 }
@@ -76,7 +83,7 @@ public class BasicCalculator {
     }
 
     public static void main(String[] args) {
-        String s = "2*3+4";
+        String s = "1*2-3/4+5*6-7*8+9/10";
         int rst = calculate(s);
         System.out.println(rst);
     }
