@@ -49,7 +49,14 @@ public class AsteroidCollision {
     }
 
     public static void main(String[] args) {
-
+        Integer intObj=Integer.valueOf(args[args.length-1]);
+        int i = intObj.intValue();
+        if(args.length > 1)
+            System.out.println(i);
+        if(args.length > 0)
+            System.out.println(i - 1);
+        else
+            System.out.println(i - 2);
         AsteroidCollision asteroidCollision = new AsteroidCollision();
         int[] asteroids = {-4,-1,10,2,-1,8,-9,-6,5,2};
         int[] rst =  asteroidCollision.asteroidCollision(asteroids);
