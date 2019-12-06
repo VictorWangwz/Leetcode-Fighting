@@ -1,6 +1,7 @@
 var isPalindrome = function(s) {
     let l = 0;
     s = s.replace(/\W/g, '').toLowerCase();
+    console.log(s);
     let r = s.length - 1;
     while( l <= r ){
         if(s[l] != s[r]){
