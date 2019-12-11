@@ -33,6 +33,9 @@ public class OptionalObject {
         List<String> list1 = Arrays.stream(arr).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         System.out.println(list1);
 
+        String rst = Arrays.stream(arr).reduce("", (s1, s2) -> s1 + s2);
+        System.out.println(rst);
+
 
     }
 }
