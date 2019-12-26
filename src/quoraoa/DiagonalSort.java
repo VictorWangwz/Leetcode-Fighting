@@ -46,10 +46,17 @@ public class DiagonalSort {
     }
 
     public static void main(String[] args) {
-        int[][] matrix = {
-                {8,4,1},
-                {4,4,1},
-                {4,8,9}
+//        int[][] matrix = {
+//                {8,4,1},
+//                {4,4,1},
+//                {4,8,9}
+//        };
+        int[][] matrix ={
+                {2,2,3,5,5},
+                {6,8,8,9,20},
+                {11,22,14,14,35},
+                {18,17,28,11,20},
+                {22,22,43,26,25}
         };
         DiagonalSort diagonalSort = new DiagonalSort();
         int[][] rst = diagonalSort.diagonalSort(matrix);
