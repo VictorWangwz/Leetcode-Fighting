@@ -19,7 +19,6 @@ public class MaxArithmeticLen {
         return true;
     }
 
-    //todo
     public int countMaxArithLen(int[] a, int[] b){
         Set<Integer> set = IntStream.of(a).boxed().collect(Collectors.toSet());
         if(set.size() != a.length && set.size() != 1){
@@ -104,8 +103,10 @@ public class MaxArithmeticLen {
     }
 
     public static void main(String[] args) {
-        int[] a = {0,4,8,16};
-        int[] b = {0,2,6,12,14,20};
+        int[] a = {0,8,12,16};
+        int[] b = {0,2,4,12,14,20};
+//        int[] b = {5,7,9};
+//        int[] a = {1,3,9,11,13};
         MaxArithmeticLen maxArithmeticLen = new MaxArithmeticLen();
         int rst = maxArithmeticLen.countMaxArithLen(a, b);
         System.out.println(rst);
