@@ -46,5 +46,7 @@ public class FavoriteGenre {
     public static void main(String[] args) {
         FavoriteGenre favoriteGenre = new FavoriteGenre();
         Map<String, List<String>> rst = favoriteGenre.favoritegenre(null, null);
+        String s = "good";
+        s.isEmpty();
     }
 }
